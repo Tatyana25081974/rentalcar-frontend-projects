@@ -10,6 +10,7 @@
   border-bottom: 1px solid #f2f4f7;
   background-color: #f2f4f7;
   height: 56px;
+  cursor: pointer;
 }
 
 .nav {
@@ -30,8 +31,9 @@
   transition: color 0.3s ease;
 }
 
-.link:hover {
-  color: #0b44cd;
+.activeLink:hover,
+.activeLink:focus {
+  color: #0938a4;
 }
 
 .activeLink {
