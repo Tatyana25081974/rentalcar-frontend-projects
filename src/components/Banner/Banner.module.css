@@ -17,7 +17,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  object-fit: contain; /* Змінено з cover на contain */
+  object-fit: cover;
   margin: 0;
   display: block;
   z-index: 0;
