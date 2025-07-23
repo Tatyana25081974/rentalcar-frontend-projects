@@ -1,0 +1,80 @@
+/* Header.module.css */
+
+/* === Мобільна версія (базова) === */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid #f2f4f7;
+  background-color: #f2f4f7;
+  height: 56px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  height: 20px;
+  width: auto;
+}
+
+.link {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.25;
+  color: #101828;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: #0b44cd;
+}
+
+.activeLink {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.25;
+  color: #0b44cd;
+  text-decoration: underline;
+  cursor: default;
+}
+
+/* === Планшетна версія (від 768px до 1023px) === */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .header {
+    padding: 20px 60px;
+    height: 64px;
+    justify-content: flex-between;
+  }
+
+  .nav {
+    gap: 24px;
+  }
+
+  .link,
+  .activeLink {
+    font-size: 14px;
+  }
+}
+
+/* === Десктопна версія (від 1024px і більше) === */
+@media (min-width: 1024px) {
+  .header {
+    padding: 24px 120px;
+    height: 68px;
+    justify-content: flex-between;
+  }
+
+  .nav {
+    gap: 32px;
+  }
+
+  .link,
+  .activeLink {
+    font-size: 16px;
+  }
+}

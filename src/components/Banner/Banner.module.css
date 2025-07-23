@@ -1,0 +1,135 @@
+/* === Мобільна версія (базова) === */
+.banner {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: flex-end; /* текст знизу */
+  justify-content: center;
+  padding-bottom: 24px;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  margin: 0;
+  display: block !important;
+  z-index: 0;
+}
+
+.textWrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 320px;
+  text-align: center;
+  color: #fff;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.3333;
+  margin: 0;
+}
+
+.button {
+  padding: 8px 12px;
+  font-weight: 600;
+  font-size: 10px;
+  background-color: #3470ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover,
+.button:focus {
+  background-color: #0938a4;
+}
+
+/* === Планшет (min-width: 768px) === */
+@media (min-width: 768px) {
+  .banner {
+    padding-bottom: 32px;
+  }
+
+  .textWrapper {
+    max-width: 680px;
+    gap: 16px;
+  }
+
+  .title {
+    font-size: 48px;
+  }
+
+  .subtitle {
+    font-size: 20px;
+  }
+
+  .button {
+    font-size: 16px;
+    padding: 12px 24px;
+  }
+}
+
+/* === Десктоп (min-width: 1280px) === */
+@media (min-width: 1280px) {
+  .banner {
+    padding-bottom: 60px;
+  }
+
+  .textWrapper {
+    max-width: 783px;
+    gap: 24px;
+  }
+
+  .title {
+    font-weight: 700;
+    font-size: 60px;
+    line-height: 1.2;
+    text-align: center;
+    color: #fff;
+  }
+
+  .subtitle {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.33333;
+    text-align: center;
+    color: #fff;
+  }
+
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 0px;
+    font-size: 18px;
+    padding: 16px 40px;
+    width: 276px;
+    height: 44px;
+  }
+}

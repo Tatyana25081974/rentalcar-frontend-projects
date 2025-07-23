@@ -7,7 +7,7 @@ import { PersistGate } from "redux-persist/integration/react";
 
 import { BrowserRouter } from "react-router-dom";
 
-import App from "./App/App.jsx";
+import App from "./App.jsx";
 
 import "modern-normalize/modern-normalize.css";
 import "./index.css";

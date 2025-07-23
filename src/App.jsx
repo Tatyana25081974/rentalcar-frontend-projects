@@ -5,26 +5,40 @@ import Modal from "react-modal";
 import SyncLoader from "react-spinners/SyncLoader";
 import { Toaster } from "react-hot-toast";
 
-import Layout from "../components/Layout/Layout.jsx";
+// Імпорти операцій та селекторів redux
+import { fetchCars } from "./redux/cars/operations.js";
+import { selectCarsLoading, selectCarsError } from "./redux/cars/selectors.js";
+import { fetchBrands } from "./redux/brands/operations.js";
 
-import { fetchCars, fetchBrands } from "../redux/cars/operations.js"; // redux операції
-import { selectCarsLoading, selectCarsError } from "../redux/cars/selectors.js"; // селектори redux
+// Заглушки на компоненти, які пізніше потрібно буде створити
+import Layout from "./components/Layout/Layout.jsx";
 
-import NetworkError from "../components/NetworkError/NetworkError.jsx";
-import ScrollToTop from "../components/ScrollToTop/ScrollToTop.jsx";
-
-// Ліниве завантаження сторінок для оптимізації
-const HomePage = lazy(() => import("../pages/HomePage/HomePage.jsx"));
-const CatalogPage = lazy(() => import("../pages/CatalogPage/CatalogPage.jsx"));
-const CarDetailsPage = lazy(() =>
-  import("../pages/CarDetailsPage/CarDetailsPage.jsx")
+const NetworkError = () => (
+  <div>Network Error Component (потрібно реалізувати)</div>
 );
-const NotFoundPage = lazy(() => import("../pages/NotFound/NotFound.jsx"));
+const ScrollToTop = () => null; // Заглушка, можна прибрати поки
 
-// Для доступності модалок
+// Ліниве завантаження сторінок (зараз коментар, поки їх нема)
+const HomePage = lazy(() => import("./pages/HomePage/HomePage.jsx"));
+const CatalogPage = lazy(() =>
+  Promise.resolve({
+    default: () => <div>CatalogPage (потрібно реалізувати)</div>,
+  })
+);
+const CarDetailsPage = lazy(() =>
+  Promise.resolve({
+    default: () => <div>CarDetailsPage (потрібно реалізувати)</div>,
+  })
+);
+const NotFoundPage = lazy(() =>
+  Promise.resolve({
+    default: () => <div>NotFoundPage (потрібно реалізувати)</div>,
+  })
+);
+
 Modal.setAppElement("#root");
 
-const App = () => {
+export default function App() {
   const dispatch = useDispatch();
 
   // Локальний стан для пагінації та фільтрів
@@ -33,7 +47,6 @@ const App = () => {
   const [priceFilter, setPriceFilter] = useState("");
   const [mileageFilter, setMileageFilter] = useState({ from: "", to: "" });
 
-  // Скидання сторінки при зміні фільтрів (щоб почати з першої сторінки)
   useEffect(() => {
     setPage(1);
   }, [selectedBrand, priceFilter, mileageFilter]);
@@ -42,7 +55,6 @@ const App = () => {
   const isLoading = useSelector(selectCarsLoading);
   const isError = useSelector(selectCarsError);
 
-  // Запит на бренди та авто з урахуванням фільтрів і пагінації
   useEffect(() => {
     dispatch(fetchBrands());
     dispatch(
@@ -56,7 +68,6 @@ const App = () => {
     );
   }, [dispatch, page, selectedBrand, priceFilter, mileageFilter]);
 
-  // Функція для скидання усіх фільтрів
   const resetFilters = () => {
     setSelectedBrand("");
     setPriceFilter("");
@@ -64,7 +75,6 @@ const App = () => {
     setPage(1);
   };
 
-  // Стиль для лоадера поверх всього екрану
   const loaderOverlayStyle = {
     position: "fixed",
     top: 0,
@@ -78,7 +88,6 @@ const App = () => {
     zIndex: 9999,
   };
 
-  // Показуємо лоадер, поки дані завантажуються
   if (isLoading) {
     return (
       <div style={loaderOverlayStyle}>
@@ -87,21 +96,16 @@ const App = () => {
     );
   }
 
-  // Показуємо сторінку помилки, якщо щось пішло не так
   if (isError) {
     return <NetworkError />;
   }
 
   return (
     <>
-      {/* Скролл сторінки вгору при переході */}
       <ScrollToTop />
-
-      {/* Загальна обгортка сайту (header, footer) */}
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          {/* Сторінка каталогу з усіма фільтрами та пагінацією */}
           <Route
             path="/catalog"
             element={
@@ -118,19 +122,11 @@ const App = () => {
               />
             }
           />
-
-          {/* Сторінка деталей одного авто з формою оренди */}
           <Route path="/catalog/:id" element={<CarDetailsPage />} />
-
-          {/* Сторінка 404 при невідповідному маршруті */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>
-
-      {/* Показ повідомлень типу toast */}
       <Toaster position="top-center" toastOptions={{ duration: 4000 }} />
     </>
   );
-};
-
-export default App;
+}
