@@ -1,12 +1,12 @@
-/* === Мобільна версія (базова) === */
+/* === Мобільна версія  === */
 .banner {
   position: relative;
   width: 100vw;
   height: 100vh;
   display: flex;
-  align-items: flex-end; /* текст знизу */
+  align-items: flex-end;
   justify-content: center;
-  padding-bottom: 24px;
+  padding-bottom: 60px;
   overflow: hidden;
   background-color: #000;
 }
@@ -17,10 +17,11 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  object-fit: cover;
+  object-fit: contain; /* Змінено з cover на contain */
   margin: 0;
-  display: block !important;
+  display: block;
   z-index: 0;
+  background-color: #000;
 }
 
 .textWrapper {
@@ -72,12 +73,12 @@
 /* === Планшет (min-width: 768px) === */
 @media (min-width: 768px) {
   .banner {
-    padding-bottom: 32px;
+    padding-bottom: 78px;
   }
 
   .textWrapper {
     max-width: 680px;
-    gap: 16px;
+    gap: 12px;
   }
 
   .title {
@@ -90,7 +91,9 @@
 
   .button {
     font-size: 16px;
-    padding: 12px 24px;
+    padding: 10px 24px;
+    width: 276px;
+    height: 44px;
   }
 }
 

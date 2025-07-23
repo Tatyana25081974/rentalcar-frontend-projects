@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-modal";
 import SyncLoader from "react-spinners/SyncLoader";
-import { Toaster } from "react-hot-toast";
 
 // Імпорти операцій та селекторів redux
 import { fetchCars } from "./redux/cars/operations.js";
@@ -126,7 +125,6 @@ export default function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>
-      <Toaster position="top-center" toastOptions={{ duration: 4000 }} />
     </>
   );
 }
