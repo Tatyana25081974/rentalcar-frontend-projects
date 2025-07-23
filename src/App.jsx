@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-modal";
 import SyncLoader from "react-spinners/SyncLoader";
+import CatalogPage from "./pages/CatalogPage/CatalogPage.jsx";
 
 // Імпорти операцій та селекторів redux
 import { fetchCars } from "./redux/cars/operations.js";
@@ -19,11 +20,7 @@ const ScrollToTop = () => null; // Заглушка, можна прибрати
 
 // Ліниве завантаження сторінок (зараз коментар, поки їх нема)
 const HomePage = lazy(() => import("./pages/HomePage/HomePage.jsx"));
-const CatalogPage = lazy(() =>
-  Promise.resolve({
-    default: () => <div>CatalogPage (потрібно реалізувати)</div>,
-  })
-);
+
 const CarDetailsPage = lazy(() =>
   Promise.resolve({
     default: () => <div>CarDetailsPage (потрібно реалізувати)</div>,
