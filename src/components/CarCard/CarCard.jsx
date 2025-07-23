@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addFavorite, removeFavorite } from "../../redux/cars/slice";
 import styles from "./CarCard.module.css";
 import { FaHeart } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 const CarCard = ({ car }) => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const CarCard = ({ car }) => {
     <div className={styles.card}>
       <img
         className={styles.image}
-        src={car.image}
+        src={car.image || "/images/banner.png"}
         alt={`${car.brand} ${car.model}`}
       />
 
@@ -48,7 +49,14 @@ const CarCard = ({ car }) => {
           </p>
         </div>
       </div>
-      <button className={styles.readMore}>Read more</button>
+      <NavLink
+        to={`/catalog/${car.id}`}
+        className={({ isActive }) =>
+          isActive ? `${styles.readMore} ${styles.activeLink}` : styles.readMore
+        }
+      >
+        Read more
+      </NavLink>
     </div>
   );
 };

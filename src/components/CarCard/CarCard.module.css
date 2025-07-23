@@ -94,6 +94,7 @@ p {
   line-height: 1.5;
   cursor: pointer;
   border: none;
+  text-decoration: none;
 }
 .readMore:hover {
   background-color: #0938a4;
@@ -102,6 +103,9 @@ p {
 .readMore:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(52, 112, 255, 0.7);
+}
+.activeLink {
+  background-color: #0b2969;
 }
 .heartIcon {
   position: absolute;
