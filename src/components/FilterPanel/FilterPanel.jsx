@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import Select from "react-select";
 
 import { setFilters } from "../../redux/cars/slice";
-import { fetchBrands } from "../../redux/brands/slice";
+import { fetchBrands } from "../../redux/brands/operations";
 import { selectBrandsList } from "../../redux/brands/selectors";
 
 import styles from "./FilterPanel.module.css";
@@ -19,6 +19,12 @@ const FormikSelect = ({ name, options, placeholder }) => {
 
   const selectedValue =
     options.find((option) => option.value === values[name]) || null;
+  console.log("FormikSelect", {
+    name,
+    selectedValue,
+    valuesName: values[name],
+    options,
+  });
 
   return (
     <Select
@@ -47,9 +53,14 @@ const FilterSchema = Yup.object().shape({
 const FilterPanelFormik = ({ onReset }) => {
   const dispatch = useDispatch();
   const brands = useSelector(selectBrandsList);
+  const filters = useSelector((state) => state.cars.filters);
+
+  console.log("brands from redux:", brands);
 
   useEffect(() => {
+    console.log("brands.length =", brands.length);
     if (brands.length === 0) {
+      console.log("Dispatching fetchBrands");
       dispatch(fetchBrands());
     }
   }, [brands.length, dispatch]);
@@ -70,18 +81,14 @@ const FilterPanelFormik = ({ onReset }) => {
 
   return (
     <Formik
-      initialValues={{
-        brand: "",
-        rentalPrice: "",
-        minMileage: "",
-        maxMileage: "",
-      }}
+      initialValues={filters} // <-- тут передаємо фільтри з Redux
+      enableReinitialize={true} // <-- і оновлюємо форму при зміні фільтрів
       validationSchema={FilterSchema}
       onSubmit={(values, { resetForm }) => {
         dispatch(setFilters(values));
-        resetForm(); // Очищаємо форму після сабміту
+        resetForm();
         if (onReset) {
-          onReset(); // Викликаємо скидання локальних стейтів в батьку
+          onReset();
         }
       }}
     >
@@ -102,7 +109,7 @@ const FilterPanelFormik = ({ onReset }) => {
           </label>
 
           <label className={styles.filterLabel}>
-            <span>Price/ 1 hour</span>
+            <span>Price / 1 hour</span>
             <FormikSelect
               name="rentalPrice"
               options={priceOptions}
@@ -116,7 +123,7 @@ const FilterPanelFormik = ({ onReset }) => {
           </label>
 
           <label className={styles.filterLabel}>
-            <span>Сar mileage / km</span>
+            <span>Car mileage / km</span>
             <Field
               type="number"
               name="minMileage"
@@ -131,7 +138,7 @@ const FilterPanelFormik = ({ onReset }) => {
           </label>
 
           <label className={styles.filterLabel}>
-            <span>Сar mileage / km</span>
+            <span>Car mileage / km</span>
             <Field
               type="number"
               name="maxMileage"

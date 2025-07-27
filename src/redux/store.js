@@ -18,6 +18,7 @@ import storage from "redux-persist/lib/storage";
 // Імпортуємо редюсери з наших slice-ів
 import carsReducer from "./cars/slice";
 import brandsReducer from "./brands/slice";
+import bookingReducer from "./booking/bookingSlice";
 
 // Налаштовуємо конфіг для збереження тільки списку обраних авто з carsSlice
 const favoritesPersistConfig = {
@@ -36,6 +37,7 @@ export const store = configureStore({
   reducer: {
     cars: persistedCarsReducer,
     brands: brandsReducer,
+    booking: bookingReducer,
   },
   // Налаштування middleware — потрібні для коректної роботи redux-persist з Redux Toolkit
   middleware: (getDefaultMiddleware) =>

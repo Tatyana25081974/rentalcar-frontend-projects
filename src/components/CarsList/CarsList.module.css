@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.grid {
+  display: grid;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+
+  /* Мобільна версія - 1 картка в ряд */
+  grid-template-columns: 1fr;
+}
+
+/* Планшетна версія - 2 картки в ряд */
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Десктопна версія - 4 картки в ряд */
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.loadMoreButton {
+  margin-top: 20px;
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #3470ff;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.loadMoreButton:hover:not(:disabled) {
+  background-color: #2a5bd1;
+  box-shadow: 0 4px 12px rgba(52, 112, 255, 0.5);
+}
+
+.loadMoreButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 112, 255, 0.7);
+}
+
+.loadMoreButton:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+  box-shadow: none;
+}

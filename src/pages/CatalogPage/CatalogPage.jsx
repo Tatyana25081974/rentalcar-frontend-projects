@@ -20,7 +20,7 @@ const CatalogPage = ({
         setPriceFilter={setPriceFilter}
         mileageFilter={mileageFilter}
         setMileageFilter={setMileageFilter}
-        onReset={onReset} // <-- передаємо сюди
+        onReset={onReset}
       />
     </div>
   );

@@ -1,52 +1,35 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchBrands } from "./operations";
 
-import axios from "axios";
+const handlePending = (state) => {
+  state.loading = true;
+  state.error = null;
+};
 
-export const fetchBrands = createAsyncThunk(
-  "brands/fetchBrands",
-  async (_, thunkAPI) => {
-    try {
-      const response = await axios.get(
-        "https://car-rental-api.goit.global/brands"
-      );
+const handleRejected = (state, action) => {
+  state.loading = false;
+  state.error = action.payload;
+};
 
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(
-        error.response?.data || "Помилка завантаження брендів"
-      );
-    }
-  }
-);
-
-// Створюємо слайс для брендів
 const brandsSlice = createSlice({
   name: "brands",
   initialState: {
-    list: [],
-    status: "idle",
+    items: [], // список брендів
+    loading: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    // якщо потрібні додаткові редюсери — можна додати
+  },
   extraReducers: (builder) => {
     builder
-      // Коли запит починається — ставимо статус "loading" і чистимо помилку
-      .addCase(fetchBrands.pending, (state) => {
-        state.status = "loading";
-        state.error = null;
-      })
-      // Коли запит успішний — записуємо отриманий список брендів, ставимо статус "succeeded"
+      .addCase(fetchBrands.pending, handlePending)
       .addCase(fetchBrands.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.list = action.payload; // action.payload — це масив брендів з API
+        state.loading = false;
+        state.items = action.payload;
       })
-      // Якщо помилка — записуємо повідомлення і ставимо статус "failed"
-      .addCase(fetchBrands.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload;
-      });
+      .addCase(fetchBrands.rejected, handleRejected);
   },
 });
 
-// Експортуємо reducer, щоб підключити в store.js
 export default brandsSlice.reducer;

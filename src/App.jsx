@@ -9,7 +9,7 @@ import CatalogPage from "./pages/CatalogPage/CatalogPage.jsx";
 import { fetchCars } from "./redux/cars/operations.js";
 import { selectCarsLoading, selectCarsError } from "./redux/cars/selectors.js";
 import { fetchBrands } from "./redux/brands/operations.js";
-
+import { selectBrandsList } from "./redux/brands/selectors.js";
 // Заглушки на компоненти, які пізніше потрібно буде створити
 import Layout from "./components/Layout/Layout.jsx";
 
@@ -50,6 +50,7 @@ export default function App() {
   // Селектори для завантаження та помилок
   const isLoading = useSelector(selectCarsLoading);
   const isError = useSelector(selectCarsError);
+  const brands = useSelector(selectBrandsList);
 
   useEffect(() => {
     dispatch(fetchBrands());
@@ -57,9 +58,9 @@ export default function App() {
       fetchCars({
         page,
         brand: selectedBrand,
-        price: priceFilter,
-        mileageFrom: mileageFilter.from,
-        mileageTo: mileageFilter.to,
+        rentalPrice: priceFilter,
+        minMileage: mileageFilter.from,
+        maxMileage: mileageFilter.to,
       })
     );
   }, [dispatch, page, selectedBrand, priceFilter, mileageFilter]);
@@ -115,6 +116,7 @@ export default function App() {
                 mileageFilter={mileageFilter}
                 setMileageFilter={setMileageFilter}
                 onReset={resetFilters}
+                brands={brands}
               />
             }
           />

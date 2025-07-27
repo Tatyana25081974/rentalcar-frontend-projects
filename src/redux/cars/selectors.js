@@ -1,28 +1,37 @@
-// Вибираємо весь слайс cars
-export const selectCarsState = (state) => state.cars;
+// cars/selectors.js
 
-// Вибираємо масив авто
-export const selectCarsItems = (state) => state.cars.items;
+// Вибрати всі машини (масив)
+export const selectCars = (state) => state.cars.cars || [];
 
-// Вибираємо статус завантаження (idle, loading, succeeded, failed)
-export const selectCarsStatus = (state) => state.cars.status;
+// Вибрати поточну сторінку (номер)
+export const selectCurrentPage = (state) => state.cars.page || 1;
 
-// Вибираємо повідомлення про помилку
+// Вибрати загальну кількість сторінок (для пагінації)
+export const selectTotalPages = (state) => state.cars.totalPages || 1;
+
+// Вибрати загальну кількість авто (для інформації)
+export const selectTotalCars = (state) => state.cars.totalCars || 0;
+
+// Вибрати статус завантаження (loading, error тощо)
+export const selectCarsLoading = (state) => state.cars.loading;
+
+// Вибрати помилку, якщо є
 export const selectCarsError = (state) => state.cars.error;
 
-// Вибираємо поточну сторінку пагінації
-export const selectCarsPage = (state) => state.cars.page;
+// Вибрати чи йде додаткове довантаження (append)
+export const selectIsAppending = (state) => state.cars.append;
 
-// Вибираємо загальну кількість сторінок
-export const selectCarsTotalPages = (state) => state.cars.totalPages;
+// Вибрати деталі конкретного авто (наприклад, для сторінки деталей)
+export const selectCarDetails = (state) => state.cars.carDetails || null;
 
-// Вибираємо загальну кількість авто
-export const selectCarsTotalCars = (state) => state.cars.totalCars;
+// Вибрати фільтри з Redux state
+export const selectFilters = (state) =>
+  state.cars.filters || {
+    brand: "",
+    rentalPrice: "",
+    minMileage: "",
+    maxMileage: "",
+  };
 
-// Вибираємо фільтри
-export const selectCarsFilters = (state) => state.cars.filters;
-
-// Вибираємо список обраних авто
-export const selectCarsFavorites = (state) => state.cars.favoritesList;
-
-export const selectCarsLoading = (state) => state.cars.status === "loading";
+// Вибрати список обраних авто (favorites), які зберігаються у state.cars.favorites
+export const selectFavoriteCars = (state) => state.cars.favorites || [];
