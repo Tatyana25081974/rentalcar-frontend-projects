@@ -1,74 +1,84 @@
-/* Базові стилі (мобільні) */
-.container {
-  max-width: 100%;
-  padding: 10px 15px;
-  margin: 0 auto;
-  font-family: Arial, sans-serif;
+.catalogWrapper,
+.loadMoreWrapper {
+  position: relative;
+  z-index: 1000;
 }
 
-.title {
-  font-size: 1.5rem;
-  margin-bottom: 15px;
-  color: #333;
+/* Mobile */
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  list-style: none;
+  margin: 0 auto 24px;
+  padding: 0; /* якщо потрібен, можна додати */
 }
 
-.filterSection {
-  margin-bottom: 20px;
+/* Кожна картка */
+.list > li {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
-.statusMessage,
-.errorMessage {
-  font-size: 1rem;
+/* Відступ між фільтрами і списком */
+.filters {
+  margin-bottom: 56px;
+}
+
+/* Відступ між списком карток і кнопкою */
+.list {
+  margin-bottom: 80px;
+}
+
+/* Tablet */
+@media screen and (min-width: 768px) {
+  .list > li {
+    width: calc((100% - 24px) / 2); /* 2 картки в ряд з відступом 24px */
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 1024px) {
+  .list > li {
+    width: calc((100% - 72px) / 4); /* 4 картки в ряд з загальним gap 72px */
+  }
+}
+
+/* Обгортка кнопки Load More */
+.loadMoreWrapper {
+  display: flex;
+  justify-content: center;
   margin-top: 10px;
 }
 
-/* Планшети (від 600px) */
-@media (min-width: 600px) {
-  .container {
-    max-width: 540px;
-    padding: 15px 20px;
-  }
-
-  .title {
-    font-size: 1.75rem;
-    margin-bottom: 20px;
-  }
-
-  .filterSection {
-    margin-bottom: 25px;
-  }
-
-  .statusMessage,
-  .errorMessage {
-    font-size: 1.1rem;
-  }
+.loadMoreWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
 }
 
-/* Ноутбуки та десктопи (від 900px) */
-@media (min-width: 900px) {
-  .container {
-    max-width: 900px;
-    padding: 20px 30px;
-  }
-
-  .title {
-    font-size: 2rem;
-    margin-bottom: 25px;
-  }
-
-  .filterSection {
-    margin-bottom: 30px;
-  }
-
-  .statusMessage,
-  .errorMessage {
-    font-size: 1.2rem;
-  }
+/* Стилі кнопки Load More */
+.loadMoreWrapper button {
+  width: 120px;
+  height: 36px;
+  background-color: #fff;
+  color: #000;
+  border-radius: 8px;
+  font-family: "Manrope", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  border: 2px solid #0b44cd;
+  transition: background-color 0.3s ease;
+  z-index: 10000;
 }
 
-/* Великі екрани (від 1200px) */
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1200px;
-  }
+.loadMoreWrapper button:hover,
+.loadMoreWrapper button:focus {
+  background-color: #0b44cd;
+  outline: none;
+  z-index: 100000;
 }

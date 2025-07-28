@@ -1,4 +1,5 @@
 // cars/selectors.js
+import { createSelector } from "@reduxjs/toolkit";
 
 // Вибрати всі машини (масив)
 export const selectCars = (state) => state.cars.cars || [];
@@ -35,3 +36,10 @@ export const selectFilters = (state) =>
 
 // Вибрати список обраних авто (favorites), які зберігаються у state.cars.favorites
 export const selectFavoriteCars = (state) => state.cars.favorites || [];
+
+// Вибрати деталі конкретних обраних авто
+export const selectFavoriteCarsDetails = createSelector(
+  [(state) => state.cars.cars, selectFavoriteCars],
+  (allCars, favoriteIds) =>
+    allCars.filter((car) => favoriteIds.includes(car.id))
+);

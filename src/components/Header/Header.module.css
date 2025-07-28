@@ -3,6 +3,8 @@
 /* === Мобільна версія (базова) === */
 
 .header {
+  position: relative;
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -49,6 +51,7 @@
 @media (min-width: 768px) and (max-width: 1023px) {
   .header {
     padding: 20px 60px;
+
     height: 64px;
     justify-content: flex-between;
   }
@@ -69,6 +72,8 @@
     padding: 24px 120px;
     height: 68px;
     justify-content: flex-between;
+    min-width: 1200px;
+    width: 100%;
   }
 
   .nav {

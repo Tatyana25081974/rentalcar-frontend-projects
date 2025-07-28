@@ -4,7 +4,7 @@ import axios from "axios";
 // GET @ /cars - завантажити список машин з фільтрами та пагінацією
 export const fetchCars = createAsyncThunk(
   "cars/fetchCars",
-  async (params, thunkAPI) => {
+  async (params = {}, thunkAPI) => {
     try {
       const {
         page = 1,
@@ -20,8 +20,10 @@ export const fetchCars = createAsyncThunk(
 
       if (brand) queryParams.append("brand", brand);
       if (rentalPrice) queryParams.append("rentalPrice", rentalPrice);
-      if (minMileage) queryParams.append("minMileage", minMileage);
-      if (maxMileage) queryParams.append("maxMileage", maxMileage);
+      if (minMileage !== "" && minMileage !== null)
+        queryParams.append("minMileage", minMileage);
+      if (maxMileage !== "" && maxMileage !== null)
+        queryParams.append("maxMileage", maxMileage);
 
       const url = `/api/cars?${queryParams.toString()}`;
 

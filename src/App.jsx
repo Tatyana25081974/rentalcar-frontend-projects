@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-modal";
 import SyncLoader from "react-spinners/SyncLoader";
 import CatalogPage from "./pages/CatalogPage/CatalogPage.jsx";
+import { selectCars } from "./redux/cars/selectors.js";
 
 // Імпорти операцій та селекторів redux
 import { fetchCars } from "./redux/cars/operations.js";
@@ -16,6 +17,7 @@ import Layout from "./components/Layout/Layout.jsx";
 const NetworkError = () => (
   <div>Network Error Component (потрібно реалізувати)</div>
 );
+
 const ScrollToTop = () => null; // Заглушка, можна прибрати поки
 
 // Ліниве завантаження сторінок (зараз коментар, поки їх нема)
@@ -47,7 +49,7 @@ export default function App() {
     setPage(1);
   }, [selectedBrand, priceFilter, mileageFilter]);
 
-  // Селектори для завантаження та помилок
+  const cars = useSelector(selectCars);
   const isLoading = useSelector(selectCarsLoading);
   const isError = useSelector(selectCarsError);
   const brands = useSelector(selectBrandsList);
@@ -107,6 +109,7 @@ export default function App() {
             path="/catalog"
             element={
               <CatalogPage
+                cars={cars}
                 page={page}
                 setPage={setPage}
                 selectedBrand={selectedBrand}

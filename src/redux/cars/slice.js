@@ -54,18 +54,29 @@ const carsSlice = createSlice({
     setPage(state, action) {
       state.page = action.payload;
     },
-    addFavorite(state, action) {
-      if (!state.favorites.includes(action.payload)) {
-        state.favorites.push(action.payload);
+    // addFavorite(state, action) {
+    // if (!state.favorites.includes(action.payload)) {
+    //  state.favorites.push(action.payload);
+    // }
+    //},
+    // removeFavorite(state, action) {
+    //  state.favorites = state.favorites.filter((id) => id !== action.payload);
+    // },
+    //clearFavorites(state) {
+    // state.favorites = [];
+    //},
+    toggleFavorite(state, action) {
+      const id = action.payload;
+      if (state.favorites.includes(id)) {
+        // Видаляємо авто з обраних, якщо вже є
+        state.favorites = state.favorites.filter((favId) => favId !== id);
+      } else {
+        // Додаємо авто в обране, якщо немає
+        state.favorites.push(id);
       }
     },
-    removeFavorite(state, action) {
-      state.favorites = state.favorites.filter((id) => id !== action.payload);
-    },
-    clearFavorites(state) {
-      state.favorites = [];
-    },
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(fetchCars.pending, handlePending)
@@ -102,9 +113,10 @@ export const {
   setFilters,
   resetFilters,
   setPage,
-  addFavorite,
-  removeFavorite,
-  clearFavorites,
+  //addFavorite,
+  //removeFavorite,
+  //clearFavorites,
+  toggleFavorite,
 } = carsSlice.actions;
 
 export default carsSlice.reducer;
