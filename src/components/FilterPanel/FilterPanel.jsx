@@ -1,53 +1,23 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Formik, Form, Field, ErrorMessage, useFormikContext } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import Select from "react-select";
 
-import { setFilters } from "../../redux/cars/slice";
+import { setFilters, resetFilters } from "../../redux/cars/slice";
 import { fetchBrands } from "../../redux/brands/operations";
 import { selectBrandsList } from "../../redux/brands/selectors";
 
+import FormikSelect from "../FormikSelect/FormikSelect"; // імпорт кастомного селекта
 import styles from "./FilterPanel.module.css";
 
-const FormikSelect = ({ name, options, placeholder }) => {
-  const { setFieldValue, values } = useFormikContext();
-
-  const handleChange = (selectedOption) => {
-    setFieldValue(name, selectedOption ? selectedOption.value : "");
-  };
-
-  const selectedValue =
-    options.find((option) => option.value === values[name]) || null;
-  console.log("FormikSelect", {
-    name,
-    selectedValue,
-    valuesName: values[name],
-    options,
-  });
-
-  return (
-    <Select
-      className={styles.reactSelectContainer}
-      options={options}
-      value={selectedValue}
-      onChange={handleChange}
-      placeholder={placeholder}
-      isClearable
-    />
-  );
-};
-
+// Схема валідації
 const FilterSchema = Yup.object().shape({
   brand: Yup.string(),
   rentalPrice: Yup.string(),
   minMileage: Yup.number().nullable().min(0, "Пробіг не може бути від’ємним"),
   maxMileage: Yup.number()
     .nullable()
-    .min(
-      Yup.ref("minMileage"),
-      "'Максимальний пробіг' має бути більшим за 'мінімальний'"
-    ),
+    .min(Yup.ref("minMileage"), "Максимальний пробіг має бути більшим"),
 });
 
 const FilterPanelFormik = ({ onReset }) => {
@@ -55,12 +25,8 @@ const FilterPanelFormik = ({ onReset }) => {
   const brands = useSelector(selectBrandsList);
   const filters = useSelector((state) => state.cars.filters);
 
-  console.log("brands from redux:", brands);
-
   useEffect(() => {
-    console.log("brands.length =", brands.length);
     if (brands.length === 0) {
-      console.log("Dispatching fetchBrands");
       dispatch(fetchBrands());
     }
   }, [brands.length, dispatch]);
@@ -81,18 +47,15 @@ const FilterPanelFormik = ({ onReset }) => {
 
   return (
     <Formik
-      initialValues={filters} // <-- тут передаємо фільтри з Redux
-      enableReinitialize={true} // <-- і оновлюємо форму при зміні фільтрів
+      initialValues={filters}
+      enableReinitialize
       validationSchema={FilterSchema}
-      onSubmit={(values, { resetForm }) => {
+      onSubmit={(values) => {
         dispatch(setFilters(values));
-        resetForm();
-        if (onReset) {
-          onReset();
-        }
+        if (onReset) onReset();
       }}
     >
-      {({ isSubmitting }) => (
+      {({ isSubmitting, resetForm }) => (
         <Form className={styles.filterForm}>
           <label className={styles.filterLabel}>
             <span>Brand</span>
@@ -100,11 +63,6 @@ const FilterPanelFormik = ({ onReset }) => {
               name="brand"
               options={brandOptions}
               placeholder="Choose a brand"
-            />
-            <ErrorMessage
-              name="brand"
-              component="div"
-              className={styles.error}
             />
           </label>
 
@@ -114,11 +72,6 @@ const FilterPanelFormik = ({ onReset }) => {
               name="rentalPrice"
               options={priceOptions}
               placeholder="Choose a price"
-            />
-            <ErrorMessage
-              name="rentalPrice"
-              component="div"
-              className={styles.error}
             />
           </label>
 
@@ -158,6 +111,18 @@ const FilterPanelFormik = ({ onReset }) => {
             className={styles.submitButton}
           >
             Search
+          </button>
+
+          <button
+            type="button"
+            className={styles.resetButton}
+            onClick={() => {
+              dispatch(resetFilters());
+              resetForm();
+              if (onReset) onReset();
+            }}
+          >
+            Reset filters
           </button>
         </Form>
       )}

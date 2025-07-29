@@ -1,28 +1,23 @@
-import React, { useEffect, useState, lazy } from "react";
+import React, { useState, useEffect, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Modal from "react-modal";
 import SyncLoader from "react-spinners/SyncLoader";
-import CatalogPage from "./pages/CatalogPage/CatalogPage.jsx";
-import { selectCars } from "./redux/cars/selectors.js";
 
-// Імпорти операцій та селекторів redux
-import { fetchCars } from "./redux/cars/operations.js";
-import { selectCarsLoading, selectCarsError } from "./redux/cars/selectors.js";
-import { fetchBrands } from "./redux/brands/operations.js";
-import { selectBrandsList } from "./redux/brands/selectors.js";
-// Заглушки на компоненти, які пізніше потрібно буде створити
 import Layout from "./components/Layout/Layout.jsx";
+import CatalogPage from "./pages/CatalogPage/CatalogPage.jsx";
+import { Toaster } from "react-hot-toast";
 
-const NetworkError = () => (
-  <div>Network Error Component (потрібно реалізувати)</div>
-);
+import {
+  selectCars,
+  selectCarsLoading,
+  selectCarsError,
+  selectFilters,
+} from "./redux/cars/selectors.js";
 
-const ScrollToTop = () => null; // Заглушка, можна прибрати поки
+import { fetchCars } from "./redux/cars/operations";
 
-// Ліниве завантаження сторінок (зараз коментар, поки їх нема)
 const HomePage = lazy(() => import("./pages/HomePage/HomePage.jsx"));
-
 const CarDetailsPage = lazy(() =>
   Promise.resolve({
     default: () => <div>CarDetailsPage (потрібно реалізувати)</div>,
@@ -38,41 +33,24 @@ Modal.setAppElement("#root");
 
 export default function App() {
   const dispatch = useDispatch();
-
-  // Локальний стан для пагінації та фільтрів
   const [page, setPage] = useState(1);
-  const [selectedBrand, setSelectedBrand] = useState("");
-  const [priceFilter, setPriceFilter] = useState("");
-  const [mileageFilter, setMileageFilter] = useState({ from: "", to: "" });
-
-  useEffect(() => {
-    setPage(1);
-  }, [selectedBrand, priceFilter, mileageFilter]);
 
   const cars = useSelector(selectCars);
   const isLoading = useSelector(selectCarsLoading);
   const isError = useSelector(selectCarsError);
-  const brands = useSelector(selectBrandsList);
+  const filters = useSelector(selectFilters);
 
+  // 🔁 Отримання машин при зміні page або filters
   useEffect(() => {
-    dispatch(fetchBrands());
-    dispatch(
-      fetchCars({
-        page,
-        brand: selectedBrand,
-        rentalPrice: priceFilter,
-        minMileage: mileageFilter.from,
-        maxMileage: mileageFilter.to,
-      })
-    );
-  }, [dispatch, page, selectedBrand, priceFilter, mileageFilter]);
-
-  const resetFilters = () => {
-    setSelectedBrand("");
-    setPriceFilter("");
-    setMileageFilter({ from: "", to: "" });
-    setPage(1);
-  };
+    dispatch(fetchCars({ page, ...filters }));
+  }, [
+    dispatch,
+    page,
+    filters.brand,
+    filters.rentalPrice,
+    filters.minMileage,
+    filters.maxMileage,
+  ]);
 
   const loaderOverlayStyle = {
     position: "fixed",
@@ -96,37 +74,28 @@ export default function App() {
   }
 
   if (isError) {
-    return <NetworkError />;
+    return (
+      <div style={{ color: "red", textAlign: "center" }}>
+        Network error occurred
+      </div>
+    );
   }
 
   return (
     <>
-      <ScrollToTop />
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route
             path="/catalog"
-            element={
-              <CatalogPage
-                cars={cars}
-                page={page}
-                setPage={setPage}
-                selectedBrand={selectedBrand}
-                setSelectedBrand={setSelectedBrand}
-                priceFilter={priceFilter}
-                setPriceFilter={setPriceFilter}
-                mileageFilter={mileageFilter}
-                setMileageFilter={setMileageFilter}
-                onReset={resetFilters}
-                brands={brands}
-              />
-            }
+            element={<CatalogPage cars={cars} page={page} setPage={setPage} />}
           />
           <Route path="/catalog/:id" element={<CarDetailsPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>
+
+      <Toaster position="top-center" />
     </>
   );
 }
