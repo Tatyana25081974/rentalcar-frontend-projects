@@ -43,14 +43,7 @@ export default function App() {
   // 🔁 Отримання машин при зміні page або filters
   useEffect(() => {
     dispatch(fetchCars({ page, ...filters }));
-  }, [
-    dispatch,
-    page,
-    filters.brand,
-    filters.rentalPrice,
-    filters.minMileage,
-    filters.maxMileage,
-  ]);
+  }, [dispatch, page, filters]);
 
   const loaderOverlayStyle = {
     position: "fixed",
