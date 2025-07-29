@@ -9,9 +9,19 @@
   background-color: #fff;
   border-radius: 14px;
   padding: 0 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+  border: 2px solid transparent; /* щоб уникнути "стрибка" при hover */
 
   box-sizing: border-box;
+  z-index: 0; /* важливо для накладання */
+  position: relative;
+}
+/* ✨ Hover — яскраве світле світіння */
+.card:hover {
+  transform: scale(1.2) translateY(-12px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), 0 0 24px rgba(173, 216, 255, 0.4);
+  z-index: 10; /* піднімає над іншими елементами */
 }
 
 .photoDetailsWrapper {
