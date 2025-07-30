@@ -7,23 +7,28 @@ import { setFilters, resetFilters } from "../../redux/cars/slice";
 import { fetchBrands } from "../../redux/brands/operations";
 import { selectBrandsList } from "../../redux/brands/selectors";
 
-import FormikSelect from "../FormikSelect/FormikSelect"; // імпорт кастомного селекта
+import FormikSelect from "../FormikSelect/FormikSelect";
 import styles from "./FilterPanel.module.css";
+import { selectFilters } from "../../redux/cars/selectors";
 
-// Схема валідації
+// 📌 Схема валідації
 const FilterSchema = Yup.object().shape({
   brand: Yup.string(),
   rentalPrice: Yup.string(),
-  minMileage: Yup.number().nullable().min(0, "Пробіг не може бути від’ємним"),
+  minMileage: Yup.number()
+    .nullable()
+    .typeError("Введи число")
+    .min(0, "Пробіг не може бути від’ємним"),
   maxMileage: Yup.number()
     .nullable()
+    .typeError("Введи число")
     .min(Yup.ref("minMileage"), "Максимальний пробіг має бути більшим"),
 });
 
-const FilterPanelFormik = ({ onReset }) => {
+const FilterPanelFormik = ({ onReset, setPage }) => {
   const dispatch = useDispatch();
   const brands = useSelector(selectBrandsList);
-  const filters = useSelector((state) => state.cars.filters);
+  const filters = useSelector(selectFilters);
 
   useEffect(() => {
     if (brands.length === 0) {
@@ -52,7 +57,10 @@ const FilterPanelFormik = ({ onReset }) => {
       validationSchema={FilterSchema}
       onSubmit={(values) => {
         dispatch(setFilters(values));
-        if (onReset) onReset();
+
+        setTimeout(() => {
+          setPage(1);
+        }, 50);
       }}
     >
       {({ isSubmitting, resetForm }) => (
@@ -80,7 +88,7 @@ const FilterPanelFormik = ({ onReset }) => {
             <Field
               type="number"
               name="minMileage"
-              placeholder="From"
+              placeholder=" From "
               className={styles.inputField}
             />
             <ErrorMessage
@@ -95,7 +103,7 @@ const FilterPanelFormik = ({ onReset }) => {
             <Field
               type="number"
               name="maxMileage"
-              placeholder="To"
+              placeholder="To (наприклад: 20 000)"
               className={styles.inputField}
             />
             <ErrorMessage
@@ -117,9 +125,9 @@ const FilterPanelFormik = ({ onReset }) => {
             type="button"
             className={styles.resetButton}
             onClick={() => {
-              dispatch(resetFilters());
-              resetForm();
-              if (onReset) onReset();
+              dispatch(resetFilters()); // 🧼 очищаємо фільтри
+              resetForm(); // 🧼 очищаємо поля форми
+              if (onReset) onReset(); // опціонально
             }}
           >
             Reset filters

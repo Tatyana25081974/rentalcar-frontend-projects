@@ -5,28 +5,39 @@ import styles from "./CatalogPage.module.css";
 import FilterPanel from "../../components/FilterPanel/FilterPanel";
 import CarsList from "../../components/CarsList/CarsList";
 import LoadMoreBtn from "../../components/LoadMoreBtn/LoadMoreBtn";
+
 import { resetFilters } from "../../redux/cars/slice";
+import { fetchCars } from "../../redux/cars/operations";
+import EmptyState from "../../components/EmptyState/EmptyState";
 
 const CatalogPage = ({ cars, page, setPage }) => {
   const dispatch = useDispatch();
 
-  // ✅ Отримуємо totalPages і loading з Redux
   const totalPages = useSelector((state) => state.cars.totalPages);
   const loading = useSelector((state) => state.cars.loading);
 
   const handleReset = () => {
     dispatch(resetFilters());
     setPage(1);
+    dispatch(
+      fetchCars({
+        page: 1,
+        brand: "",
+        rentalPrice: "",
+        minMileage: "",
+        maxMileage: "",
+      })
+    );
   };
 
   return (
     <div className={styles.catalogWrapper}>
       <div className={styles.filters}>
-        <FilterPanel onReset={handleReset} />
+        <FilterPanel onReset={handleReset} setPage={setPage} />
       </div>
 
       <div className={styles.list}>
-        <CarsList cars={cars} />
+        {cars.length > 0 ? <CarsList cars={cars} /> : <EmptyState />}
       </div>
 
       <div className={styles.loadMoreWrapper}>

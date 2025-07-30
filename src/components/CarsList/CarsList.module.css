@@ -1,28 +1,30 @@
 .list {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
+  gap: 24px; /* ✅ трохи більше повітря між картками */
+  justify-content: flex-start;
+  padding: 0 16px;
 }
 
-/* Всі картки мають ширину 100% на мобілці */
 .list > * {
   flex: 1 1 100%;
   max-width: 100%;
+  min-width: 280px;
 }
 
-/* Планшет: картки по 50% */
+/* Планшет: 2 картки в ряд */
 @media (min-width: 600px) {
   .list > * {
-    flex: 1 1 45%;
-    max-width: 45%;
+    flex: 1 1 calc((100% - 24px) / 2);
+    max-width: calc((100% - 24px) / 2);
   }
 }
 
-/* Десктоп: картки по 25% */
+/* Десктоп: 4 картки в ряд */
 @media (min-width: 1024px) {
   .list > * {
-    flex: 1 1 22%;
-    max-width: 22%;
+    flex: 1 1 calc((100% - 72px) / 4); /* 3 гепи по 24px */
+    max-width: calc((100% - 72px) / 4);
+    padding: 0 32px;
   }
 }

@@ -1,7 +1,6 @@
 .catalogWrapper,
 .loadMoreWrapper {
   position: relative;
-  z-index: 1000;
 }
 
 /* Mobile */

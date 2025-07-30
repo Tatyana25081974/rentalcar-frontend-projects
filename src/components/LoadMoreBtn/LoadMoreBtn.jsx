@@ -4,7 +4,7 @@ import { toast } from "react-hot-toast";
 import css from "./LoadMoreBtn.module.css";
 
 export default function LoadMoreBtn({ page, setPage, isLoading, totalPages }) {
-  const hasShownToast = useRef(false); // ✅ показувати тост лише 1 раз
+  const hasShownToast = useRef(false);
 
   useEffect(() => {
     if (

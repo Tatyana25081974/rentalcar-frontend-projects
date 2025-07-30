@@ -48,7 +48,7 @@ const carsSlice = createSlice({
         minMileage: "",
         maxMileage: "",
       };
-      state.page = 1;
+
       state.append = false;
     },
     setPage(state, action) {
