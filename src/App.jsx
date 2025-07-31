@@ -16,36 +16,35 @@ import {
 } from "./redux/cars/selectors";
 import { fetchCars } from "./redux/cars/operations";
 
-// 📦 Ліниве завантаження сторінок
+//  Ліниве завантаження сторінок
 const HomePage = lazy(() => import("./pages/HomePage/HomePage.jsx"));
 const CatalogPage = lazy(() => import("./pages/CatalogPage/CatalogPage.jsx"));
 const CarDetailsPage = lazy(() =>
-  Promise.resolve({
-    default: () => <div>CarDetailsPage (потрібно реалізувати)</div>,
-  })
+  import("./pages/CarDetailsPage/CarDetailsPage.jsx")
 );
+
 const NotFoundPage = lazy(() =>
   Promise.resolve({
     default: () => <div>NotFoundPage (потрібно реалізувати)</div>,
   })
 );
 
-// 🎯 Прив’язка для модалки
+// Прив’язка для модалки
 Modal.setAppElement("#root");
 
 export default function App() {
   const dispatch = useDispatch();
 
-  // 📄 Сторінка (локальний стан)
+  // Сторінка (локальний стан)
   const [page, setPage] = useState(1);
 
-  // 🪝 Дані з Redux
+  // Дані з Redux
   const cars = useSelector(selectCars);
   const isLoading = useSelector(selectCarsLoading);
   const isError = useSelector(selectCarsError);
   const filters = useSelector(selectFilters);
 
-  // 📦 Запуск запиту при зміні page або filters
+  // Запуск запиту при зміні page або filters
   useEffect(() => {
     dispatch(fetchCars({ page, ...filters }));
   }, [dispatch, page, filters]);
@@ -53,25 +52,25 @@ export default function App() {
   return (
     <>
       <Layout>
-        {/* 🔄 Повноекранний loader */}
+        {/* Повноекранний loader */}
         {isLoading && !isError && <FullPageLoader />}
 
-        {/* ❌ Помилка мережі */}
+        {/*  Помилка мережі */}
         {isError && <NetworkError />}
 
-        {/* 🔀 Роути */}
+        {/*  Роути */}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route
             path="/catalog"
             element={<CatalogPage cars={cars} page={page} setPage={setPage} />}
           />
-          <Route path="/catalog/:id" element={<CarDetailsPage />} />
+          <Route path="/catalog/:carId" element={<CarDetailsPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>
 
-      {/* 🔔 Тостер повідомлень */}
+      {/*  Тостер повідомлень */}
       <Toaster position="top-center" />
     </>
   );

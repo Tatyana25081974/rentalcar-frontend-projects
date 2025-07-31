@@ -1,0 +1,114 @@
+/* === 📱 Мобільна версія (до 768px) === */
+.CarForm {
+  background-color: #ffffff;
+  border: 1px solid #dadee1;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 320px;
+  gap: 20px;
+  padding: 20px;
+}
+
+.formTitle {
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+}
+
+.formTextTitle {
+  font-size: 14px;
+  font-weight: 400;
+  color: #555;
+  margin: 0;
+}
+
+/* Форма */
+.bookingForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Інпут і textarea */
+.input,
+.textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: inherit;
+  background-color: #f7f7f7;
+  transition: border-color 0.3s;
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: #3470ff;
+  background-color: #ffffff;
+  outline: none;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 96px;
+}
+
+/* Кнопка */
+.submitBtn {
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  background-color: #3470ff;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: flex-start;
+  width: 100%;
+  max-width: 320px;
+}
+
+.submitBtn:hover {
+  background-color: #2554d1;
+}
+
+/* Повідомлення про помилку */
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: -10px;
+  margin-bottom: 6px;
+}
+
+/* === 📱 Планшетна версія (768–1279px) === */
+@media screen and (min-width: 768px) {
+  .CarForm {
+    max-width: 520px;
+    padding: 28px 24px;
+    gap: 20px;
+  }
+}
+
+/* === 💻 Десктопна версія (1280px+) — 1:1 як у Figma === */
+@media screen and (min-width: 1280px) {
+  .CarForm {
+    max-width: 640px;
+    height: 488px;
+    padding: 32px;
+    gap: 24px;
+    border: 1px solid #dadee1;
+    border-radius: 12px;
+    background-color: #ffffff;
+  }
+
+  .submitBtn {
+    align-self: flex-start;
+  }
+}

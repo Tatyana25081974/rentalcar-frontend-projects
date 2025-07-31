@@ -85,7 +85,11 @@ const CarCard = ({ car }) => {
       </div>
 
       <div className={styles.readMoreWrapper}>
-        <button onClick={handleReadMoreClick} className={styles.readMoreBtn}>
+        <button
+          type="button"
+          onClick={handleReadMoreClick}
+          className={styles.readMoreBtn}
+        >
           Read more
         </button>
       </div>
