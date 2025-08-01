@@ -71,7 +71,16 @@ export default function App() {
       </Layout>
 
       {/*  Тостер повідомлень */}
-      <Toaster position="top-center" />
+      <Toaster
+        position="top-center"
+        containerStyle={{
+          top: 20,
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 9999,
+          pointerEvents: "none",
+        }}
+      />
     </>
   );
 }

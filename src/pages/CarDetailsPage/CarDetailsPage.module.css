@@ -1,0 +1,254 @@
+.detailsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 16px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.CarContainer {
+  width: 100%;
+  background-color: #d2dde2;
+  border: 1px solid #d8e1e7;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.CarImgContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  border: 1px solid #d8e1e7;
+  border-radius: 12px;
+  background-color: #fff;
+  padding: 20px;
+}
+
+.CarImg {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.CarForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f0f4f6;
+  border: 1px solid #d8e1e7;
+  border-radius: 12px;
+}
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  background-color: #d2dde2;
+  border: 1px solid #d8e1e7;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.detailsCarContainer {
+  background-color: #fff;
+  border: 1px solid #d8e1e7;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.titleGroup {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #101828;
+}
+
+.carId {
+  font-size: 14px;
+  color: #71818d;
+}
+
+.address,
+.price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.description {
+  font-size: 14px;
+  color: #121417;
+  line-height: 1.4;
+}
+
+.CarInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.RentalConditions,
+.CarSpecifications,
+.AccessoriesAndFunctionalities {
+  background-color: #fff;
+  border: 1px solid #d8e1e7;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.conditionsList,
+.specList,
+.accessoriesList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.icon {
+  margin-right: 8px;
+  color: #3470ff;
+}
+@media screen and (min-width: 768px) {
+  .detailsContainer {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 32px;
+    padding: 20px 40px;
+  }
+
+  .CarContainer,
+  .infoContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: #d2dde2;
+    border: 1px solid #d8e1e7;
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .CarImgContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 32px;
+  }
+
+  .CarForm {
+    margin-top: auto;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .detailsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 72px;
+    padding: 40px 120px;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .CarContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #d2dde2;
+    border: 1px solid #d8e1e7;
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .CarImgContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #fff;
+    border: 1px solid #d8e1e7;
+    border-radius: 12px;
+    padding: 20px;
+    box-sizing: border-box;
+    flex: 1;
+  }
+  .CarImg {
+    width: 100%;
+    border-radius: 14px;
+    object-fit: cover;
+    height: 360px;
+    flex-shrink: 0;
+    background-color: #d2dde2;
+  }
+  .CarForm {
+    background-color: #d2dde2;
+    border: 1px solid #d8e1e7;
+    border-radius: 12px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-grow: 1;
+    justify-content: space-between;
+  }
+
+  .infoContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 68px;
+    background-color: #d2dde2;
+    border: 1px solid #d8e1e7;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 664px;
+    width: 100%;
+  }
+
+  .detailsCarContainer {
+    background-color: #fff;
+    border: 1px solid #d8e1e7;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .CarInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .RentalConditions,
+  .CarSpecifications,
+  .AccessoriesAndFunctionalities {
+    background-color: #fff;
+    border: 1px solid #d8e1e7;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .CarImg {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    gap: 32px;
+    max-width: 640px;
+    width: 100%;
+  }
+}
