@@ -1,0 +1,128 @@
+/* === Базова мобільна версія (320–767px) === */
+.pageWrapper {
+  background-color: #53bce6;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 12px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 320px;
+  background-color: #b2d9e8;
+  padding: 24px 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin: 20px auto;
+}
+.card {
+  background-color: #f1f5f8;
+  padding: 24px 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 320px;
+  text-align: center;
+}
+
+.card :global(svg) {
+  max-width: 240px;
+  margin: 0 auto 20px;
+}
+
+.title {
+  font-size: 24px;
+  color: #0d1d41;
+  margin-bottom: 10px;
+}
+
+.text {
+  font-size: 14px;
+  color: #0d1d41;
+  margin-bottom: 20px;
+}
+
+.link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #0d1d41;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.link:hover {
+  background-color: #0e489f;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 580px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 16px;
+    margin: 40px auto;
+  }
+  .card {
+    padding: 36px 28px;
+    max-width: 960px;
+    margin: auto;
+  }
+
+  .card :global(svg) {
+    max-width: 300px;
+  }
+
+  .title {
+    font-size: 26px;
+  }
+
+  .text {
+    font-size: 16px;
+  }
+
+  .homeLink {
+    font-size: 16px;
+    padding: 12px 28px;
+  }
+}
+
+/* === Desktop (1024px+) === */
+@media screen and (min-width: 1024px) {
+  .container {
+    max-width: 960px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 48px 24px;
+  }
+  .card {
+    padding: 48px 40px;
+    max-width: 960px;
+  }
+
+  .card :global(svg) {
+    max-width: 340px;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+
+  .text {
+    font-size: 18px;
+  }
+
+  .homeLink {
+    font-size: 18px;
+    padding: 14px 32px;
+  }
+}

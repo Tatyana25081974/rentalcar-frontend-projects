@@ -24,9 +24,7 @@ const CarDetailsPage = lazy(() =>
 );
 
 const NotFoundPage = lazy(() =>
-  Promise.resolve({
-    default: () => <div>NotFoundPage (потрібно реалізувати)</div>,
-  })
+  import("./pages/NotFoundPage/NotFoundPage.jsx")
 );
 
 // Прив’язка для модалки
@@ -58,7 +56,6 @@ export default function App() {
         {/*  Помилка мережі */}
         {isError && <NetworkError />}
 
-        {/*  Роути */}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route
