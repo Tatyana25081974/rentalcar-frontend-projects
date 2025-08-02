@@ -6,6 +6,14 @@
   font-family: "Montserrat", sans-serif;
 }
 
+.CarDetailsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 16px;
+  font-family: "Montserrat", sans-serif;
+}
+
 .CarContainer {
   width: 100%;
   background-color: #d2dde2;
@@ -123,8 +131,27 @@
   margin-right: 8px;
   color: #3470ff;
 }
+.backButton {
+  margin-bottom: 20px;
+  padding: 8px 16px;
+  background-color: #3470ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  max-width: 280px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.backButton:hover {
+  background-color: #275cd6;
+}
+
 @media screen and (min-width: 768px) {
-  .detailsContainer {
+  .CarDetailsWrapper {
     flex-direction: row;
     align-items: stretch;
     gap: 32px;
@@ -154,7 +181,7 @@
   }
 }
 @media screen and (min-width: 1024px) {
-  .detailsContainer {
+  .CarDetailsWrapper {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
