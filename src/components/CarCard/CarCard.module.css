@@ -19,7 +19,7 @@
 }
 /* ✨ Hover — яскраве світле світіння */
 .card:hover {
-  transform: scale(1.2) translateY(-12px);
+  transform: scale(1.1) translateY(-12px);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), 0 0 24px rgba(173, 216, 255, 0.4);
   z-index: 10000; /* піднімає над іншими елементами */
 }
