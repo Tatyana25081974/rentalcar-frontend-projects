@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axiosInstance from "../../api/axios";
 
 // GET @ /cars - завантажити список машин з фільтрами та пагінацією
 export const fetchCars = createAsyncThunk(
@@ -25,9 +25,9 @@ export const fetchCars = createAsyncThunk(
       if (maxMileage !== "" && maxMileage !== null)
         queryParams.append("maxMileage", maxMileage);
 
-      const url = `/api/cars?${queryParams.toString()}`;
+      const url = `/cars?${queryParams.toString()}`;
 
-      const { data } = await axios.get(url);
+      const { data } = await axiosInstance.get(url);
 
       return {
         ...data, // data має містити: cars[], totalPages, totalCars, page
@@ -49,7 +49,7 @@ export const fetchCarDetails = createAsyncThunk(
       return thunkAPI.rejectWithValue("Невірний ідентифікатор авто");
     }
     try {
-      const { data } = await axios.get(`/api/cars/${carId}`);
+      const { data } = await axiosInstance.get(`/cars/${carId}`);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(

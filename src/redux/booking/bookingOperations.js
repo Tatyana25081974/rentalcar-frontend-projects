@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axiosInstance from "../../api/axios";
 
 export const submitBooking = createAsyncThunk(
   "booking/submitBooking",
@@ -16,7 +16,7 @@ export const submitBooking = createAsyncThunk(
     }
 
     try {
-      const { data } = await axios.get("/api/bookings", bookingData);
+      const { data } = await axiosInstance.post("/bookings", bookingData);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(

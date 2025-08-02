@@ -1,11 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axiosInstance from "../../api/axios";
 
 export const fetchBrands = createAsyncThunk(
   "brands/fetchBrands",
   async (_, thunkAPI) => {
     try {
-      const { data } = await axios.get("/api/brands");
+      const { data } = await axiosInstance.get("/brands");
       return data; // очікуємо масив брендів
     } catch (error) {
       return thunkAPI.rejectWithValue(
